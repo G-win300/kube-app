@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db-deploy
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: vprofile/vprofiledb:v1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - name: 
+        - containerPort: <Port>
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+          - valueFrom:
+              secretKeyRef:
+                key: db-pass
