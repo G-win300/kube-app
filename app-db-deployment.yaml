@@ -4,22 +4,39 @@ metadata:
   name: db-app
 spec:
   selector:
-    matchLabels::
+    matchLabels:
       app: db-app
   replicas: 1
-  template::::
-    metadata::
+  template:
+    metadata:
       labels:
         app: db-app
     spec:
       containers:
-      - name: myapp
+      - name: db-app
         image: vprofile/vprofiledb:v1
+        args:
+          - "--ignore-db-dir=lost+found"
+        volumeMounts:
+          - mountPath: /var/lib/mysql 
+            name: db-app
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
         ports:
-        - name: db-app-port
         - containerPort: 3306
+        - name: db-app-port
         env:
           - name: MYSQL_ROOT_PASSWORD
           - valueFrom:
               secretKeyRef:
+                name: mysecret
                 key: db-pass
+      nodeSelector:
+        zone: us-east-1a
+      volumes:
+        - name: myapp-db-vol
+        awsElasticBlockStore:
+          volumeID: vol-123
+          fsType: ext4
