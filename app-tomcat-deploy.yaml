@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-tomcat
+spec:
+  selector:
+    matchLabels:
+      app: app-tomcat
+  template:
+    metadata:
+      labels:
+        app: app-tomcat
+    spec:
+      containers:
+      - name: app-tomcat
+        image: vprofile/vprofileapp:V1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - name: app-tomcat-port
+          containerPort: 8080
+      initContainers:
+        - name: init-mydb
+          image: busybox
+          command: ['sh', 'c', 'until nslookup db-app; do echo waiting for mydb; sleep 2; done;']
+        - name: init-memcached
+          image: busybox
+          command: ['sh', 'c', 'until nslookup mc-app; do echo waiting for mydb; sleep 2; done;']
