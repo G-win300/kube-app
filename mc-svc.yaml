@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: db-app-svc
+  name: mc-app-svc
 spec:
   selector:
-    app: db-app
+    app: mc-app
   ports:
-  - port: 3306
-    targetPort: db-app-port
+  - port: 11211
+    targetPort: mc-port
     protocol: TCP
   type: ClusterIP
