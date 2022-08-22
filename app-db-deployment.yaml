@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: db-app
-        image: vprofile/vprofiledb:v1
+        image: vprofile/vprofiledb:V1
         args:
           - "--ignore-db-dir=lost+found"
         volumeMounts:
@@ -26,17 +26,17 @@ spec:
             cpu: "500m"
         ports:
         - containerPort: 3306
-        - name: db-app-port
+          name: db-app-port
         env:
           - name: MYSQL_ROOT_PASSWORD
-          - valueFrom:
+            valueFrom:
               secretKeyRef:
                 name: mysecret
                 key: db-pass
       nodeSelector:
         zone: us-east-1a
       volumes:
-        - name: myapp-db-vol
-        awsElasticBlockStore:
-          volumeID: vol-123
+        - name: myapp-db-vol-mounted
+          awsElasticBlockStore:
+          volumeID: vol-03bacfefd4330b604
           fsType: ext4
