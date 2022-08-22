@@ -19,7 +19,7 @@ spec:
           - "--ignore-db-dir=lost+found"
         volumeMounts:
           - mountPath: /var/lib/mysql 
-            name: db-app
+            name: myapp-db-vol-mounted
         resources:
           limits:
             memory: "128Mi"
@@ -41,4 +41,3 @@ spec:
             volumeID: vol-03bacfefd4330b604
             fsType: ext4
 
-            
