@@ -4,9 +4,9 @@ metadata:
   name: rmq-app
 spec:
   selector:
-  replicas: 1
     matchLabels:
       app: rmq-app
+  replicas: 1
   template:
     metadata:
       labels:
