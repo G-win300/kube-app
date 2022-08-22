@@ -4,9 +4,9 @@ metadata:
   name: mc-app
 spec:
   selector:
-  replicas: 1
     matchLabels:
       app: mc-app
+  replicas: 1
   template:
     metadata:
       labels:
